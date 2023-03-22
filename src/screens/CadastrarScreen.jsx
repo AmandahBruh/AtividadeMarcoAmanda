@@ -1,33 +1,58 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 import { View, TextInput } from "react-native";
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
+import { auth } from "../config/Firebase";
+
 import styles from "../utils/styles";
 
 export default function CadastrarScreen() {
-  const [Nome, setNome] = useState();
-  const [Email, setEmail] = useState();
-  const [Senha, setSenha] = useState();
+  const [Nome, setNome] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Senha, setSenha] = useState("");
 
+  function handleRegister(){
+    createUserWithEmailAndPassword(auth, Email, Senha)
+    .then((userCredential) => {
+      console.log("Usuário cadastrado com sucesso!");
+    })
+    .catch((error) => {
+      console.log("Erro ao cadastrar usuário!", error);
 
+      const errorCode = error.code;
+
+      if(errorCode === "auth/weak-password"){
+        alert("A senha deve ter no mínimo 6 caracteres!");
+      } 
+
+      if(errorCode === "auth/email-already-in-use"){
+        alert("E-mail já cadastrado!");
+      }
+    });
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
-        {" "}
-        <h1>Sou a tela de cadastro</h1>
+        <h1>Sou a tela de cadastro {Nome}</h1>
       </Text>
 
       <TextInput
         style={styles.input}
         label="Nome"
-        placeholder="Digite seu email..."
+        placeholder="Digite seu nome..."
+        value={Nome}
         multiline={false}
+        onChangeText={setNome}
       />
 
       <TextInput
         style={styles.input}
-        label="Email"
-        placeholder="Digite seu email..."
+        label="E-mail"
+        placeholder="Digite seu e-mail..."
         multiline={false}
+        value={Email}
+        onChangeText={setEmail}
       />
 
       <TextInput
@@ -36,6 +61,8 @@ export default function CadastrarScreen() {
         placeholder="Digite sua Senha..."
         secureTextEntry={true}
         multiline={false}
+        value={Senha}
+        onChangeText={setSenha}
       />
 
       <TextInput
@@ -45,6 +72,7 @@ export default function CadastrarScreen() {
         secureTextEntry={true}
         multiline={false}
       />
+      <Button onPress={handleRegister}>Cadastrar-se</Button>
     </View>
   );
 }
