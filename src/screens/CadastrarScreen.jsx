@@ -11,24 +11,24 @@ export default function CadastrarScreen() {
   const [Email, setEmail] = useState("");
   const [Senha, setSenha] = useState("");
 
-  function handleRegister(){
+  function handleRegister() {
     createUserWithEmailAndPassword(auth, Email, Senha)
-    .then((userCredential) => {
-      console.log("Usuário cadastrado com sucesso!");
-    })
-    .catch((error) => {
-      console.log("Erro ao cadastrar usuário!", error);
+      .then((userCredential) => {
+        console.log("Usuário cadastrado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Erro ao cadastrar usuário!", error);
 
-      const errorCode = error.code;
+        const errorCode = error.code;
 
-      if(errorCode === "auth/weak-password"){
-        alert("A senha deve ter no mínimo 6 caracteres!");
-      } 
+        if (errorCode === "auth/weak-password") {
+          alert("A senha deve ter no mínimo 6 caracteres!");
+        }
 
-      if(errorCode === "auth/email-already-in-use"){
-        alert("E-mail já cadastrado!");
-      }
-    });
+        if (errorCode === "auth/email-already-in-use") {
+          alert("E-mail já cadastrado!");
+        }
+      });
   }
 
   return (
@@ -72,7 +72,9 @@ export default function CadastrarScreen() {
         secureTextEntry={true}
         multiline={false}
       />
-      <Button onPress={handleRegister}>Cadastrar-se</Button>
+      <Button style={styles.button} mode="contained" onPress={handleRegister}>
+        Cadastrar-se
+      </Button>
     </View>
   );
 }
