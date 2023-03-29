@@ -20,7 +20,10 @@ export default function RickAndMorty() {
         <Card.Title>{item.name}</Card.Title>
         <Card.Content>
             <Title>{item.air_date}</Title>
-            <Paragraph>{item.episode}</Paragraph>
+            <Paragraph>Está vivo? {item.status}</Paragraph>
+              {item.episode.map((episode) => (
+                <Paragraph key={episode}>{episode}</Paragraph>
+              ))}
         </Card.Content>
         <Card.Cover source={{ uri: item.image }}></Card.Cover>
       </Card>
