@@ -1,10 +1,6 @@
 import { View } from "react-native";
 import { Text, Button } from "react-native-paper";
 import styles from "../utils/styles";
-import CadastrarScreen from "./CadastrarScreen";
-import FetchNews from "./FetchNews";
-import LoginScreen from "./LoginScreen";
-import RickMorty from "./RickAndMorty";
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -17,7 +13,7 @@ export default function HomeScreen({ navigation }) {
         style={styles.button}
         mode="contained"
         onPress={() => {
-          navigation.navigate(LoginScreen);
+          navigation.navigate("LoginScreen");
         }}
       >
         Login
@@ -27,7 +23,7 @@ export default function HomeScreen({ navigation }) {
         style={styles.button}
         mode="contained"
         onPress={() => {
-          navigation.navigate(CadastrarScreen);
+          navigation.navigate("CadastrarScreen");
         }}
       >
         Cadastrar
@@ -36,7 +32,7 @@ export default function HomeScreen({ navigation }) {
         style={styles.button}
         mode="contained"
         onPress={() => {
-          navigation.navigate(FetchNews);
+          navigation.navigate("FetchNews");
         }}
       >
         Fetch
@@ -45,7 +41,7 @@ export default function HomeScreen({ navigation }) {
         style={styles.button}
         mode="contained"
         onPress={() => {
-          navigation.navigate(RickMorty);
+          navigation.navigate("RickAndMorty");
         }}
       >
         Rick and Morty
