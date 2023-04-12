@@ -7,6 +7,8 @@ import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RickAndMorty from "./screens/RickAndMorty";
 import SplashScreen from "./screens/SplashScreen";
+import RMGameScreen from "./screens/RMGameScreen";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 const Tab = createNativeStackNavigator();
 
@@ -30,7 +32,7 @@ export default function RootNavigation() {
   );
 }
 
-const Tabs = createNativeStackNavigator();
+const Tabs = createMaterialBottomTabNavigator();
 
 function TabsNavigation() {
   return (
@@ -38,8 +40,7 @@ function TabsNavigation() {
       <Tabs.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{ headerShown: false, tabBarLabel: "Home", }}
-        
+        options={{ headerShown: false, tabBarLabel: "Home" }}
       />
       <Tabs.Screen
         name="LoginScreen"
@@ -61,8 +62,12 @@ function TabsNavigation() {
         component={RickAndMorty}
         options={{ headerShown: true, tabBarLabel: "RickAndMorty" }}
       />
+      <Tabs.Screen
+        name="RMGameScreen"
+        component={RMGameScreen}
+        options={{ headerShown: true, tabBarLabel: "RMGameScreen" }}
+      />
     </Tabs.Navigator>
-    
   );
 }
 

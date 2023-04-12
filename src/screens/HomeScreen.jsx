@@ -5,10 +5,7 @@ import styles from "../utils/styles";
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        {" "}
-        <h1>Bem Vindo a Home</h1>
-      </Text>
+      <Text style={styles.text}>Bem Vindo a Home</Text>
       <Button
         style={styles.button}
         mode="contained"
@@ -18,7 +15,6 @@ export default function HomeScreen({ navigation }) {
       >
         Login
       </Button>
-
       <Button
         style={styles.button}
         mode="contained"
