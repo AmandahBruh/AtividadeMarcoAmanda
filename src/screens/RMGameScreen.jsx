@@ -37,7 +37,8 @@ export default function RMGameScreen() {
   async function handlePersonagemVivoOuMorto(resposta) {
     const isAlive = personagem.status === "Alive";
     if (resposta === isAlive) {
-      alert("Você acertou!");
+      alert("Você acertou!")
+      buscaPersonagemAleatorio();
     } else {
       alert("Você errou!");
     }
@@ -55,7 +56,8 @@ export default function RMGameScreen() {
         <View>
           <Image
             source={{ uri: personagem.image }}
-            style={{ width: 200, height: 200 }}
+            
+            style={{width: 200, height: 200,}}
           />
           <Text style={styles.text}>
             O/a personagem {personagem.name} está vivo/a/e?
