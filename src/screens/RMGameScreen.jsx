@@ -1,17 +1,28 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import { Button, Text } from "react-native-paper";
-import { Image } from "react-native-web";
 import styles from "../utils/styles";
 
 export default function RMGameScreen() {
   const [personagem, setPersonagem] = useState(null);
   const [personagens, setPersonagens] = useState([]);
-  const [totalPersonagens, setTotalPersonagens] = useState(0);
+  const [totalPersonagens, setTotalPersonagens] = useState(1);
 
   useEffect(() => {
-    retornaTotalDePesonagens();
+    fetch("https://rickandmortyapi.com/api/character")
+      .then((response) => response.json())
+      .then((json) => {
+        setTotalPersonagens(json.info.count);
+      });
   }, []);
+
+  useEffect(() => {
+    fetch("https://rickandmortyapi.com/api/character/" + retornaIndiceAleatorio())
+      .then((response) => response.json())
+      .then((json) => {
+        setPersonagem(json);
+      });
+  }, [totalPersonagens]);
 
   function buscaPersonagemAleatorio() {
     fetch(
@@ -23,43 +34,53 @@ export default function RMGameScreen() {
       });
   }
 
-  function retornaTotalDePesonagens() {
-    fetch("https://rickandmortyapi.com/api/character")
-      .then((response) => response.json())
-      .then((json) => {
-        setTotalPersonagens(json.info.count);
-      });
+  async function handlePersonagemVivoOuMorto(resposta) {
+    const isAlive = personagem.status === "Alive";
+    if (resposta === isAlive) {
+      alert("Você acertou!");
+    } else {
+      alert("Você errou!");
+    }
   }
 
   function retornaIndiceAleatorio() {
     return Math.floor(Math.random() * totalPersonagens);
   }
 
-  function checkIfPersonagemEstaVivo() {
-    if (personagem.status === "Alive") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Este personagem está vivo?</Text>
-      <Image
-        source={{ uri: personagem?.image }}
-        style={{ width: 200, height: 200 }}
-      ></Image>
-      <Text style={styles.text}>Personagem: {personagem?.name}</Text>
-      <View>
-        <Button style={styles.button}>Sim</Button>
-        <Button style={styles.button}>Não</Button>
-      </View>
-
-      <Button onPress={buscaPersonagemAleatorio} style={styles.button}>
-        {" "}
-        Buscar Personagem{" "}
-      </Button>
+      <Text style={styles.text}>Rick and Morty Game</Text>
+      <Text style={styles.text}>Você sabe se o personagem está vivo?</Text>
+      {personagem && (
+        <View>
+          <Image
+            source={{ uri: personagem.image }}
+            style={{ width: 200, height: 200 }}
+          />
+          <Text style={styles.text}>
+            O/a personagem {personagem.name} está vivo/a/e?
+          </Text>
+          <View style={styles.container}>
+            <Button
+              style={styles.button}
+              mode="contained"
+              onPress={() => handlePersonagemVivoOuMorto(true)}
+            >
+              SIM
+            </Button>
+            <Button
+              style={styles.button}
+              mode="contained"
+              onPress={() => handlePersonagemVivoOuMorto(false)}
+            >
+              NÃO
+            </Button>
+            <Button onPress={buscaPersonagemAleatorio} style={styles.button}>
+              Buscar Personagem
+            </Button>
+          </View>
+        </View>
+      )}
     </View>
   );
 }
