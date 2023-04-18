@@ -53,11 +53,6 @@ function TabsNavigation() {
         options={{ headerShown: true, tabBarLabel: "Cadastro" }}
       />
       <Tabs.Screen
-        name="FetchNews"
-        component={FetchNews}
-        options={{ headerShown: true, tabBarLabel: "FetchNews" }}
-      />
-      <Tabs.Screen
         name="RickAndMorty"
         component={RickAndMorty}
         options={{ headerShown: true, tabBarLabel: "RickAndMorty" }}

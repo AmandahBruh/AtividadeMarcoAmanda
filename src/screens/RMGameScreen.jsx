@@ -7,6 +7,7 @@ export default function RMGameScreen() {
   const [personagem, setPersonagem] = useState(null);
   const [personagens, setPersonagens] = useState([]);
   const [totalPersonagens, setTotalPersonagens] = useState(1);
+  var [TextoErro] = "";
 
   useEffect(() => {
     fetch("https://rickandmortyapi.com/api/character")
@@ -62,6 +63,7 @@ export default function RMGameScreen() {
           <Text style={styles.text}>
             O/a personagem {personagem.name} está vivo/a/e?
           </Text>
+          <Text style={styles.text}>{TextoErro}</Text>
           <View style={styles.container}>
             <Button
               style={styles.button}
