@@ -63,7 +63,6 @@ export default function RMGameScreen() {
           <Text style={styles.text}>
             O/a personagem {personagem.name} está vivo/a/e?
           </Text>
-          <Text style={styles.text}>{TextoErro}</Text>
           <View style={styles.container}>
             <Button
               style={styles.button}
